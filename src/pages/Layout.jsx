@@ -5,6 +5,7 @@ import { GiFruitTree } from 'react-icons/gi';
 import { AuthContext,  } from '../contexts/contex';
 import ProcessTreeView from '../components/layoutComponents/processTreeView';
 import axios from 'axios';
+import { handleDeleteProcess } from '../components/handleDeleteProcess';
 
 export default function Layout() {
     const { logout, authToken, admin } = useContext(AuthContext)
@@ -62,7 +63,7 @@ export default function Layout() {
             </Navbar>
 
             <Container className="mb-5">
-                <ProcessTreeView areas={sampleAreas} />
+                <ProcessTreeView areas={sampleAreas} onDeleteProcess={handleDeleteProcess} />
             </Container>
         </>
     );
