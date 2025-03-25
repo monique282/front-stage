@@ -1,8 +1,8 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { useState } from 'react';
 import { Form, Button, Card, Container, Row, Col, Alert } from 'react-bootstrap';
 import { Link, useNavigate } from 'react-router-dom';
-import { useAuth } from '../contexts/contex';
+import { AuthContext } from '../contexts/contex';
 import axios from 'axios';
 
 export default function Login() {
@@ -10,7 +10,7 @@ export default function Login() {
     const [password, setPassword] = useState('');
     const [error, setError] = useState('');
     const [loading, setLoading] = useState(false);
-    const { setAuthToken, setAdmin } = useAuth();
+    const { setAuthToken, setAdmin } = useContext(AuthContext);
     const navigate = useNavigate();
     const [showPassword, setShowPassword] = useState(false); 
 

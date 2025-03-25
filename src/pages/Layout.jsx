@@ -1,18 +1,33 @@
-import React from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { Container, Navbar, Nav, Button } from 'react-bootstrap';
-import { Outlet, Link, useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { GiFruitTree } from 'react-icons/gi';
-import { useAuth } from '../contexts/contex';
+import { AuthContext,  } from '../contexts/contex';
+import ProcessTreeView from '../components/layoutComponents/processTreeView';
+import axios from 'axios';
 
 export default function Layout() {
-    const { logout, authToken, admin } = useAuth();
+    const { logout, authToken, admin } = useContext(AuthContext)
     const navigate = useNavigate();
+    const [sampleAreas, setSampleAreas] = useState([])
     function handleLogout() {
         logout();
         navigate('/login');
     };
 
-
+    useEffect (()=>{
+        const urlCode = `${import.meta.env.VITE_API_URL}/tree`;
+            axios.get(urlCode)
+                .then((response) => {
+                    setSampleAreas(response.data)
+                })
+                .catch((err) => {
+                    console.error('Erro completo:', err);
+                    console.error('Resposta de erro:', err.response?.data);
+                    
+                })
+    },[]) 
+   
     return (
         <>
             <Navbar bg="light" expand="lg" className="mb-4">
@@ -47,7 +62,7 @@ export default function Layout() {
             </Navbar>
 
             <Container className="mb-5">
-                <Outlet />
+                <ProcessTreeView areas={sampleAreas} />
             </Container>
         </>
     );
