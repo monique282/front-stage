@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { Form, Button, Card, Container, Row, Col, Alert } from 'react-bootstrap';
-import { Link, useNavigate } from 'react-router-dom';
-import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../contexts/contex';
 import { handleRegister } from '../components/layoutComponents/handleRegister';
 
@@ -14,7 +13,9 @@ export default function Register() {
     });
     const [error, setError] = useState('');
     const [loading, setLoading] = useState(false);
-    const { login, authToken } = useAuth();
+    const { authToken } = useAuth();
+    const [showPassword, setShowPassword] = useState(false);
+    const [showConfirmPassword, setShowConfirmPassword] = useState(false);
     const navigate = useNavigate();
 
     function handleChange (e) {
@@ -26,73 +27,8 @@ export default function Register() {
     };
 
     const handleSubmit = (e) => {
-        handleRegister(
-            e,
-            formData,
-            setError,
-            setLoading,
-            authToken,
-            login,
-            navigate
-        );
+        handleRegister( e, formData, setError, setLoading, authToken, navigate);
     };
-
-    // function handleSubmit(e) {
-    //     e.preventDefault();
-    //     setError('');
-
-    //     if (formData.password !== formData.confirmPassword) {
-    //         return setError('As senhas não coincidem');
-    //     }
-    //     if (formData.password.length < 8) {
-    //         return setError('A senha deve ter pelo menos 8 caracteres');
-    //     }
-
-    //     setLoading(true);
-
-    //     const config = {
-    //         headers: {
-    //             'Content-Type': 'application/json',
-    //             'Authorization': `Bearer ${authToken}`
-    //         }
-    //     };
-    //     axios.post(
-    //         `${import.meta.env.VITE_API_URL}/user/register`,
-    //         {
-    //             email: formData.email,
-    //             password: formData.password,
-    //             role: formData.role
-    //         },
-    //         config
-    //     )
-    //         .then((response) => {
-    //             console.log('Resposta do registro:', response.data);
-    //             if (response.data.token) {
-    //                 login(response.data.token, response.data.user);
-    //                 navigate('/');
-    //             } else {
-    //                 navigate('/login', {
-    //                     state: {
-    //                         success: 'Registro realizado com sucesso! Faça login.'
-    //                     }
-    //                 });
-    //             }
-    //         })
-    //         .catch((err) => {
-    //             console.error('Erro no registro:', err);
-
-    //             if (err.response) {
-    //                 setError(err.response.data.message || 'Erro ao registrar. Tente novamente.');
-    //             } else if (err.request) {
-    //                 setError('Sem resposta do servidor. Verifique sua conexão.');
-    //             } else {
-    //                 setError('Erro ao configurar a requisição.');
-    //             }
-    //         })
-    //         .finally(() => {
-    //             setLoading(false);
-    //         });
-    // };
 
     return (
         <Container className="mt-5">
@@ -126,27 +62,43 @@ export default function Register() {
 
                                 <Form.Group className="mb-3">
                                     <Form.Label>Senha</Form.Label>
-                                    <Form.Control
-                                        type="password"
-                                        name="password"
-                                        placeholder="Mínimo 8 caracteres"
-                                        value={formData.password}
-                                        onChange={handleChange}
-                                        required
-                                        minLength={8}
-                                    />
+                                    <div className="input-group"> 
+                                        <Form.Control
+                                            type={showPassword ? "text" : "password"} 
+                                            name="password"
+                                            placeholder="Mínimo 8 caracteres"
+                                            value={formData.password}
+                                            onChange={handleChange}
+                                            required
+                                            minLength={8}
+                                        />
+                                        <Button
+                                            variant="outline-secondary"
+                                            onClick={() => setShowPassword(!showPassword)}
+                                        >
+                                            {showPassword ? "👁️" : "👁️‍🗨️"} 
+                                        </Button>
+                                    </div>
                                 </Form.Group>
 
                                 <Form.Group className="mb-3">
                                     <Form.Label>Confirmar Senha</Form.Label>
-                                    <Form.Control
-                                        type="password"
-                                        name="confirmPassword"
-                                        placeholder="Digite a senha novamente"
-                                        value={formData.confirmPassword}
-                                        onChange={handleChange}
-                                        required
-                                    />
+                                    <div className="input-group">
+                                        <Form.Control
+                                            type={showConfirmPassword ? "text" : "password"}
+                                            name="confirmPassword"
+                                            placeholder="Digite a senha novamente"
+                                            value={formData.confirmPassword}
+                                            onChange={handleChange}
+                                            required
+                                        />
+                                        <Button
+                                            variant="outline-secondary"
+                                            onClick={() => setShowConfirmPassword(!showConfirmPassword)}
+                                        >
+                                            {showConfirmPassword ? "👁️" : "👁️‍🗨️"}
+                                        </Button>
+                                    </div>
                                 </Form.Group>
 
                                 <Form.Group className="mb-4">

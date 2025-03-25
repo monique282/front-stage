@@ -2,12 +2,8 @@ import axios from "axios";
 import { SyntheticEvent } from "react";
 import { NavigateFunction } from "react-router-dom";
 
-export function handleRegister(e: SyntheticEvent,
-    formData: FormData,
-    setError: (error: string) => void,
-    setLoading: (loading: boolean) => void,
-    authToken: string | null,
-    navigate: NavigateFunction)  {
+export function handleRegister(e: SyntheticEvent, formData: FormData, setError: (error: string) => void, setLoading: (loading: boolean) => void, authToken: string | null, navigate: NavigateFunction)  {
+
     e.preventDefault();
     setError('');
 
@@ -22,7 +18,6 @@ export function handleRegister(e: SyntheticEvent,
     if (formData.password.length < 8) {
         return setError('A senha deve ter pelo menos 8 caracteres');
     };
-
 
     setLoading(true);
 
@@ -43,10 +38,11 @@ export function handleRegister(e: SyntheticEvent,
         config
     )
         .then((response) => {
-            alert("Cadastro realizado com sucesso")
-            navigate("/")
+            alert("Cadastro realizado com sucesso");
+            navigate("/");
         })
         .catch((err) => {
+            setLoading(false);
             console.error('Erro no registro:', err);
             if (err.response) {
                 setError(err.response.data || 'Erro ao registrar. Tente novamente.');

@@ -6,29 +6,22 @@ export const AuthContext = createContext({});
 
 export default function AuthProvider({ children }) {
     const [authToken, setAuthToken] = useState(() => localStorage.getItem("authToken"));
-    const [user, setUser] = useState(() => {
-        const userData = localStorage.getItem("user");
-        return userData ? JSON.parse(userData) : null;
-    });
     const [admin, setAdmin] = useState(false)
     const login = (token, userData) => {
         localStorage.setItem("authToken", token);
         localStorage.setItem("user", JSON.stringify(userData));
         setAuthToken(token);
-        setUser(userData);
     };
 
     const logout = () => {
         localStorage.removeItem("authToken");
         localStorage.removeItem("user");
         setAuthToken(null);
-        setUser(null);
     };
 
     return (
         <AuthContext.Provider value={{
             authToken, setAuthToken,
-            user,
             login,
             logout,
             admin, setAdmin
