@@ -13,8 +13,8 @@ export default function Login() {
     const { setAuthToken, setAdmin } = useAuth();
     const navigate = useNavigate();
 
-    function handleSubmit(e){
-        e.preventDefault(); 
+    function handleSubmit(e) {
+        e.preventDefault();
         setLoading(true);
         setError('');
 
@@ -30,8 +30,7 @@ export default function Login() {
                 if (!token) {
                     throw new Error('Token não recebido na resposta');
                 }
-                console.log(response.data[0].role)
-                if (response.data[0].role === "ADMIN"){
+                if (response.data[0].role === "ADMIN") {
                     setAdmin(true)
                 }
                 setAuthToken(token);
