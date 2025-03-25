@@ -1,13 +1,16 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import AuthProvider from "./contexts/contex";
 import Login from "./pages/Login";
+import Layout from "./pages/Layout";
 
 function App() {
   return (
     <BrowserRouter>
       <AuthProvider>
         <Routes>
-          <Route path='/' element={<Login />} />
+          <Route path="/" element={<Layout />} />
+          <Route path='/login' element={<Login />} />
+          
         </Routes>
       </AuthProvider>
     </BrowserRouter>
