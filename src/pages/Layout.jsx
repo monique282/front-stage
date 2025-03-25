@@ -5,7 +5,7 @@ import { GiFruitTree } from 'react-icons/gi';
 import { useAuth } from '../contexts/contex';
 
 export default function Layout() {
-    const { logout, authToken } = useAuth();
+    const { logout, authToken, admin } = useAuth();
     const navigate = useNavigate();
     function handleLogout() {
         logout();
@@ -24,16 +24,16 @@ export default function Layout() {
                     <Navbar.Toggle aria-controls="basic-navbar-nav" />
                     <Navbar.Collapse id="basic-navbar-nav">
                         <Nav className="me-auto">
-                            {authToken && (
+                            {admin && (
                                 <>
-                                    <Nav.Link as={Link} to="/register">Cadastrar novo usuario </Nav.Link>
+                                    <Nav.Link as={Link} to="/register" className="mb-3 mb-lg-0 me-lg-3">Cadastrar novo usuario </Nav.Link>
                                 </>
                             )}
                         </Nav>
                         <Nav>
                             {authToken ? (
                                 <>
-                                    <Button variant="outline-danger" onClick={handleLogout}>
+                                    <Button variant="outline-danger" className="mb-4 mb-lg-0 me-lg-3"  onClick={handleLogout}>
                                         Sair
                                     </Button>
                                 </>

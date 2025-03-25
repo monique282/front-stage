@@ -10,7 +10,7 @@ export default function AuthProvider({ children }) {
         const userData = localStorage.getItem("user");
         return userData ? JSON.parse(userData) : null;
     });
-
+    const [admin, setAdmin] = useState(false)
     const login = (token, userData) => {
         localStorage.setItem("authToken", token);
         localStorage.setItem("user", JSON.stringify(userData));
@@ -28,9 +28,10 @@ export default function AuthProvider({ children }) {
     return (
         <AuthContext.Provider value={{
             authToken, setAuthToken,
-            user, 
+            user,
             login,
-            logout
+            logout,
+            admin, setAdmin
         }}>
             {children}
         </AuthContext.Provider>

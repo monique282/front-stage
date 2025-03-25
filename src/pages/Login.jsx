@@ -10,7 +10,7 @@ export default function Login() {
     const [password, setPassword] = useState('');
     const [error, setError] = useState('');
     const [loading, setLoading] = useState(false);
-    const { setAuthToken } = useAuth();
+    const { setAuthToken, setAdmin } = useAuth();
     const navigate = useNavigate();
 
     function handleSubmit(e){
@@ -30,8 +30,13 @@ export default function Login() {
                 if (!token) {
                     throw new Error('Token não recebido na resposta');
                 }
+                console.log(response.data[0].role)
+                if (response.data[0].role === "ADMIN"){
+                    setAdmin(true)
+                }
                 setAuthToken(token);
                 localStorage.setItem('authToken', token);
+
                 navigate("/");
             })
             .catch((err) => {
