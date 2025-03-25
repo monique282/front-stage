@@ -12,6 +12,7 @@ export default function Login() {
     const [loading, setLoading] = useState(false);
     const { setAuthToken, setAdmin } = useAuth();
     const navigate = useNavigate();
+    const [showPassword, setShowPassword] = useState(false); 
 
     function handleSubmit(e) {
         e.preventDefault();
@@ -72,13 +73,23 @@ export default function Login() {
 
                                 <Form.Group className="mb-3">
                                     <Form.Label>Senha</Form.Label>
-                                    <Form.Control
-                                        type="password"
-                                        placeholder="Sua senha"
-                                        value={password}
-                                        onChange={(e) => setPassword(e.target.value)}
-                                        required
-                                    />
+                                    <div className="input-group"> 
+                                        <Form.Control
+                                            type={showPassword ? "text" : "password"}
+                                            placeholder="Sua senha"
+                                            value={password}
+                                            onChange={(e) => setPassword(e.target.value)}
+                                            required
+                                        />
+                                        <Button
+                                            variant="outline-secondary"
+                                            onClick={() => setShowPassword(!showPassword)}
+                                            type="button" 
+                                            aria-label={showPassword ? "Ocultar senha" : "Mostrar senha"}
+                                        >
+                                            {showPassword ? "👁️" : "👁️‍🗨️"} 
+                                        </Button>
+                                    </div>
                                 </Form.Group>
 
                                 <Button
