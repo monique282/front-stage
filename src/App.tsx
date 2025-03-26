@@ -3,6 +3,7 @@ import AuthProvider from "./contexts/contex";
 import Login from "./pages/Login";
 import Layout from "./pages/Layout";
 import Register from "./pages/Register";
+import FormForArea from "./pages/FormForArea";
 
 function App() {
   return (
@@ -12,7 +13,7 @@ function App() {
           <Route path="/" element={<Layout />} />
           <Route path='/login' element={<Login />} />
           <Route path='/register' element={<Register />} />
-          
+          <Route path='/area' element={<FormForArea />} />
         </Routes>
       </AuthProvider>
     </BrowserRouter>
