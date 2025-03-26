@@ -6,10 +6,11 @@ import { AuthContext } from '../../contexts/contex';
 
 interface ProcessTreeViewProps {
     areas: Area[];
-    onDeleteProcess?: (processId: string, authToken:string) => void;
+    onDeleteProcess?: (processId: string, authToken: string) => void;
+    onDeleteArea?: (areaId: number, authToken: string) => void;
 }
 
-const ProcessTreeView: React.FC<ProcessTreeViewProps> = ({ areas, onDeleteProcess }) => {
+const ProcessTreeView: React.FC<ProcessTreeViewProps> = ({ areas, onDeleteProcess, onDeleteArea }) => {
     const { admin, authToken } = useContext(AuthContext);
 
     const getSubprocesses = (processId: string): Process[] => {
@@ -18,10 +19,17 @@ const ProcessTreeView: React.FC<ProcessTreeViewProps> = ({ areas, onDeleteProces
         );
     };
 
-    const handleDelete = (processId: string, e: React.MouseEvent) => {
+    const handleDeleteProcess = (processId: string, e: React.MouseEvent) => {
         e.stopPropagation();
         if (onDeleteProcess) {
             onDeleteProcess(processId, authToken);
+        }
+    };
+
+    const handleDeleteArea = (areaId: number, e: React.MouseEvent) => {
+        e.stopPropagation();
+        if (onDeleteArea) {
+            onDeleteArea(areaId, authToken);
         }
     };
 
@@ -38,11 +46,11 @@ const ProcessTreeView: React.FC<ProcessTreeViewProps> = ({ areas, onDeleteProces
                                 {subprocesses.length > 0 ? `${subprocesses.length} subprocessos` : 'Processo final'}
                             </Badge>
                         </h5>
-                        {admin && (
+                        {admin && onDeleteProcess && (
                             <Button
                                 variant="outline-danger"
                                 size="sm"
-                                onClick={(e) => handleDelete(process.id, e)}
+                                onClick={(e) => handleDeleteProcess(process.id, e)}
                                 title="Excluir processo"
                             >
                                 <FaTrash />
@@ -96,12 +104,25 @@ const ProcessTreeView: React.FC<ProcessTreeViewProps> = ({ areas, onDeleteProces
 
                     return (
                         <Accordion.Item eventKey={String(index)} key={area.id}>
-                            <Accordion.Header>
-                                <FaUsers className="me-2" />
-                                {area.name}
-                                <Badge bg="info" className="ms-2">
-                                    {topLevelProcesses.length} processos principais
-                                </Badge>
+                            <Accordion.Header className="d-flex justify-content-between align-items-center">
+                                <div className="d-flex align-items-center">
+                                    <FaUsers className="me-2" />
+                                    {area.name}
+                                    <Badge bg="info" className="ms-2">
+                                        {topLevelProcesses.length} processos principais
+                                    </Badge>
+                                </div>
+                                {admin && onDeleteArea && (
+                                    <Button
+                                        variant="outline-danger"
+                                        size="sm"
+                                        onClick={(e) => handleDeleteArea(area.id, e)}
+                                        title="Excluir área"
+                                        className="ms-2"
+                                    >
+                                        <FaTrash />
+                                    </Button>
+                                )}
                             </Accordion.Header>
                             <Accordion.Body>
                                 <p className="text-muted">{area.description}</p>

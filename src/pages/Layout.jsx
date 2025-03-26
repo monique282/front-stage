@@ -6,6 +6,7 @@ import { AuthContext,  } from '../contexts/contex';
 import ProcessTreeView from '../components/layoutComponents/processTreeView';
 import axios from 'axios';
 import { handleDeleteProcess } from '../components/handleDeleteProcess';
+import { handleDeleteArea } from '../components/handleDeleteArea';
 
 export default function Layout() {
     const { logout, authToken, admin } = useContext(AuthContext)
@@ -63,7 +64,7 @@ export default function Layout() {
             </Navbar>
 
             <Container className="mb-5">
-                <ProcessTreeView areas={sampleAreas} onDeleteProcess={handleDeleteProcess} />
+                <ProcessTreeView areas={sampleAreas} onDeleteProcess={handleDeleteProcess} onDeleteArea={handleDeleteArea} />
             </Container>
         </>
     );
