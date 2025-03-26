@@ -13,7 +13,7 @@ export default function Layout() {
     const [sampleAreas, setSampleAreas] = useState([])
     function handleLogout() {
         logout();
-        navigate('/login');
+        navigate('/');
     };
 
     useEffect (()=>{

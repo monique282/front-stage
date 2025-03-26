@@ -10,7 +10,7 @@ export default function Login() {
     const [password, setPassword] = useState('');
     const [error, setError] = useState('');
     const [loading, setLoading] = useState(false);
-    const { setAuthToken, setAdmin } = useContext(AuthContext);
+    const { setAuthToken, setAdmin, updateAdmin } = useContext(AuthContext);
     const navigate = useNavigate();
     const [showPassword, setShowPassword] = useState(false); 
 
@@ -33,6 +33,7 @@ export default function Login() {
                 }
                 if (response.data[0].role === "ADMIN") {
                     setAdmin(true)
+                    updateAdmin(true)
                 }
                 setAuthToken(token);
                 localStorage.setItem('authToken', token);
