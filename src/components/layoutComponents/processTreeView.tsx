@@ -6,11 +6,11 @@ import { AuthContext } from '../../contexts/contex';
 
 interface ProcessTreeViewProps {
     areas: Area[];
-    onDeleteProcess?: (processId: string) => void;
+    onDeleteProcess?: (processId: string, authToken:string) => void;
 }
 
 const ProcessTreeView: React.FC<ProcessTreeViewProps> = ({ areas, onDeleteProcess }) => {
-    const { admin } = useContext(AuthContext);
+    const { admin, authToken } = useContext(AuthContext);
 
     const getSubprocesses = (processId: string): Process[] => {
         return areas.flatMap(area =>
@@ -21,7 +21,7 @@ const ProcessTreeView: React.FC<ProcessTreeViewProps> = ({ areas, onDeleteProces
     const handleDelete = (processId: string, e: React.MouseEvent) => {
         e.stopPropagation();
         if (onDeleteProcess) {
-            onDeleteProcess(processId);
+            onDeleteProcess(processId, authToken);
         }
     };
 
