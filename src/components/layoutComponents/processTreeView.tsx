@@ -11,8 +11,7 @@ interface ProcessTreeViewProps {
 }
 
 const ProcessTreeView: React.FC<ProcessTreeViewProps> = ({ areas, onDeleteProcess, onDeleteArea }) => {
-    const { admin, authToken } = useContext(AuthContext);
-
+    const { admin, authToken } = useContext(AuthContext) as { admin: boolean; authToken: string;};
     const getSubprocesses = (processId: string): Process[] => {
         return areas.flatMap(area =>
             area.processes.filter(process => process.parentId === processId)
