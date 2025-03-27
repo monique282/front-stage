@@ -6,6 +6,7 @@ import { NavigateFunction, useNavigate } from 'react-router-dom';
 import { CardHerder } from './cardHerder';
 import { ListGroupProcess } from './listGroup';
 import { DivAccordion } from './divAccordion';
+import { FormProcess } from './form';
 
 interface ProcessTreeViewProps {
     areas: Area[];
@@ -20,25 +21,6 @@ export function ProcessTreeView({ areas, onDeleteProcess, onDeleteArea, onEditAr
     const [editedArea, setEditedArea] = useState<Partial<AreaPut>>({});
     const navigate = useNavigate();
 
-    const handleSaveArea = (e: React.FormEvent) => {
-        e.preventDefault();
-        e.stopPropagation();
-        if (editingAreaId !== null && onEditArea) {
-            onEditArea(editingAreaId, {
-                name: editedArea.name,
-                description: editedArea.description
-            }, authToken, navigate);
-            setEditingAreaId(null);
-            setEditedArea({});
-        }
-    };
-
-    const handleCancelEditArea = (e: React.MouseEvent) => {
-        e.stopPropagation();
-        setEditingAreaId(null);
-        setEditedArea({});
-    };
-
     const renderProcess = (process: Process) => {
         return (
             <div key={process.id} className="mb-2">
@@ -46,7 +28,7 @@ export function ProcessTreeView({ areas, onDeleteProcess, onDeleteArea, onEditAr
                     <CardHerder admin={admin} process={process} onDeleteProcess={onDeleteProcess} authToken={authToken} />
                     <Card.Body>
                         <p>{process.description}</p>
-                        <ListGroupProcess process={process}/>
+                        <ListGroupProcess process={process} />
                     </Card.Body>
                 </Card>
             </div>
@@ -56,44 +38,13 @@ export function ProcessTreeView({ areas, onDeleteProcess, onDeleteArea, onEditAr
     return (
         <div className="process-tree-view">
             <h2 className="mb-4">Mapeamento de Processos por Área</h2>
-
             <Accordion defaultActiveKey="0">
                 {areas.map((area, index) => (
                     <Accordion.Item eventKey={String(index)} key={area.id}>
-                        <DivAccordion onDeleteArea={onDeleteArea} areas={areas} setEditedArea={setEditedArea} setEditingAreaId={setEditingAreaId} area={area} onEditArea={onEditArea}/>
+                        <DivAccordion onDeleteArea={onDeleteArea} areas={areas} setEditedArea={setEditedArea} setEditingAreaId={setEditingAreaId} area={area} onEditArea={onEditArea} />
                         <Accordion.Body>
                             {editingAreaId === area.id ? (
-                                <form onSubmit={handleSaveArea}>
-                                    <div className="mb-3">
-                                        <label htmlFor="areaName" className="form-label">Nome da Área</label>
-                                        <input
-                                            type="text"
-                                            className="form-control"
-                                            id="areaName"
-                                            value={editedArea.name || ''}
-                                            onChange={(e) => setEditedArea({ ...editedArea, name: e.target.value })}
-                                            required
-                                        />
-                                    </div>
-                                    <div className="mb-3">
-                                        <label htmlFor="areaDescription" className="form-label">Descrição</label>
-                                        <textarea
-                                            className="form-control"
-                                            id="areaDescription"
-                                            rows={3}
-                                            value={editedArea.description || ''}
-                                            onChange={(e) => setEditedArea({ ...editedArea, description: e.target.value })}
-                                        />
-                                    </div>
-                                    <div className="d-flex justify-content-end gap-2">
-                                        <Button variant="secondary" size="sm" onClick={handleCancelEditArea}>
-                                            Cancelar
-                                        </Button>
-                                        <Button variant="primary" size="sm" type="submit">
-                                            Salvar
-                                        </Button>
-                                    </div>
-                                </form>
+                                <FormProcess editingAreaId={editingAreaId} onEditArea={onEditArea} editedArea={editedArea} setEditingAreaId={setEditingAreaId} setEditedArea={setEditedArea} navigate={navigate} />
                             ) : (
                                 <>
                                     <p className="text-muted">{area.description}</p>
