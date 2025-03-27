@@ -128,6 +128,9 @@ export default function Register() {
                                             </>
                                         ) : 'Registrar'}
                                     </Button>
+                                    <Button variant="secondary" onClick={() => navigate("/")} className="me-2 mt-3">
+                                        Cancelar
+                                    </Button>
                                 </div>
                             </Form>
                         </Card.Body>

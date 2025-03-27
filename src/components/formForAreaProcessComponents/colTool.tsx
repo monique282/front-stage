@@ -46,7 +46,5 @@ export default function ColTool({ tempTool, setTempTool, processForm, setProcess
                 </div>
             </Form.Group>
         </Col>
-
-
     );
 }

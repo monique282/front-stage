@@ -45,7 +45,5 @@ export default function ColResponsible({ tempResponsible, setTempResponsible, pr
                 </div>
             </Form.Group>
         </Col>
-
-
     );
 }
