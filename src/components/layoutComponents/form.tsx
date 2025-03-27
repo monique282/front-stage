@@ -72,6 +72,5 @@ export function FormProcess({ editingAreaId, onEditArea, editedArea, setEditingA
                 </Button>
             </div>
         </form>
-
     );
 };

@@ -8,6 +8,7 @@ import axios from 'axios';
 import { handleDeleteProcess } from '../components/layoutComponents/handleDeleteProcess';
 import { handleDeleteArea } from '../components/layoutComponents/handleDeleteArea';
 import { handleEditAreaPut } from '../components/layoutComponents/handleEditArea';
+import { handleEditProcess } from '../components/layoutComponents/handleEditProcess';
 
 export default function Layout() {
     const { logout, authToken, admin } = useContext(AuthContext);
@@ -67,7 +68,8 @@ export default function Layout() {
                     areas={sampleAreas}
                     onDeleteProcess={handleDeleteProcess}
                     onDeleteArea={handleDeleteArea}
-                    onEditArea={handleEditAreaPut} 
+                    onEditArea={handleEditAreaPut}
+                    onEditProcess={handleEditProcess}
                 />
             </Container>
         </>

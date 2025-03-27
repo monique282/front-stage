@@ -1,21 +1,23 @@
 import React, { useContext, useState } from 'react';
-import { Accordion, Card, Button } from 'react-bootstrap';
+import { Accordion, Card } from 'react-bootstrap';
 import { Area, AreaPut, Process } from '../../types/processTree';
 import { AuthContext } from '../../contexts/contex';
 import { NavigateFunction, useNavigate } from 'react-router-dom';
-import { CardHerder } from './cardHerder';
 import { ListGroupProcess } from './listGroup';
 import { DivAccordion } from './divAccordion';
 import { FormProcess } from './form';
+import { CardHeader } from './cardHerder';
+import { ProcessPut } from '../../types/processFormData';
 
 interface ProcessTreeViewProps {
     areas: Area[];
     onDeleteProcess?: (processId: string, authToken: string) => void;
     onDeleteArea?: (areaId: number, authToken: string) => void;
     onEditArea?: (areaId: number, editedArea: Partial<AreaPut>, authToken: string, navigate: NavigateFunction) => void;
+    onEditProcess?: (processId: string, editedProcess: ProcessPut, authToken: string) => void;
 }
 
-export function ProcessTreeView({ areas, onDeleteProcess, onDeleteArea, onEditArea }: ProcessTreeViewProps) {
+export function ProcessTreeView({ areas, onDeleteProcess, onDeleteArea, onEditArea, onEditProcess }: ProcessTreeViewProps) {
     const { admin, authToken } = useContext(AuthContext) as { admin: boolean; authToken: string; };
     const [editingAreaId, setEditingAreaId] = useState<number | null>(null);
     const [editedArea, setEditedArea] = useState<Partial<AreaPut>>({});
@@ -25,7 +27,7 @@ export function ProcessTreeView({ areas, onDeleteProcess, onDeleteArea, onEditAr
         return (
             <div key={process.id} className="mb-2">
                 <Card className="mb-2">
-                    <CardHerder admin={admin} process={process} onDeleteProcess={onDeleteProcess} authToken={authToken} />
+                    <CardHeader admin={admin} process={process} onDeleteProcess={onDeleteProcess} onEditProcess={onEditProcess}  authToken={authToken} />
                     <Card.Body>
                         <p>{process.description}</p>
                         <ListGroupProcess process={process} />
