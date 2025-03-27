@@ -21,23 +21,6 @@ export function FormProcessEdit({ process, onSave, onCancel, setEditedProcess }:
         onSave(process);
     };
 
-    const addResponsible = () => {
-        if (newResponsible.trim() && !process.responsible?.includes(newResponsible.trim())) {
-            setEditedProcess({
-                ...process,
-                responsible: [...(process.responsible || []), newResponsible.trim()]
-            });
-            setNewResponsible('');
-        }
-    };
-
-    const removeResponsible = (responsibleToRemove: string) => {
-        setEditedProcess({
-            ...process,
-            responsible: process.responsible?.filter(resp => resp !== responsibleToRemove) || []
-        });
-    };
-
     const addDocument = () => {
         if (newDocument.trim() && !process.documents?.includes(newDocument.trim())) {
             setEditedProcess({
