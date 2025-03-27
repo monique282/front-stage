@@ -4,7 +4,6 @@
     name: string;
     description: string;
     areaId: number;
-    parentId: string | null;
     tools: string[];
     responsible: string[];
     documents: string[];
@@ -20,4 +19,10 @@ export type Area ={
     createdAt: string;
     updatedAt: string;
     processes: Process[];
+}
+
+export type AreaPut = {
+    id: number;
+    name: string;
+    description: string;
 }
