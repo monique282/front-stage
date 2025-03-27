@@ -7,8 +7,9 @@ import {ProcessTreeView} from '../components/layoutComponents/processTreeView';
 import axios from 'axios';
 import { handleDeleteProcess } from '../components/layoutComponents/handles/handleDeleteProcess';
 import { handleDeleteArea } from '../components/layoutComponents/handles/handleDeleteArea';
-import { handleEditAreaPut } from '../components/layoutComponents/handleEditArea';
-import { handleEditProcess } from '../components/layoutComponents/handleEditProcess';
+import { handleEditAreaPut } from '../components/layoutComponents/handles/handleEditArea';
+import { handleEditProcess } from '../components/layoutComponents/handles/handleEditProcess';
+
 
 export default function Layout() {
     const { logout, authToken, admin } = useContext(AuthContext);
