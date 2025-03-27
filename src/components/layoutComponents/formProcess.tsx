@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Button, Form, Badge } from 'react-bootstrap';
 import { ProcessPut } from '../../types/processFormData';
 import { FieldForTools } from './formProcees/fieldForTools';
+import { FieldResponsibles } from './formProcees/fieldResponsibles';
 
 interface FormProcessProps {
     process: ProcessPut;
@@ -18,23 +19,6 @@ export function FormProcessEdit({ process, onSave, onCancel, setEditedProcess }:
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault();
         onSave(process);
-    };
-
-    const addTool = () => {
-        if (newTool.trim() && !process.tools?.includes(newTool.trim())) {
-            setEditedProcess({
-                ...process,
-                tools: [...(process.tools || []), newTool.trim()]
-            });
-            setNewTool('');
-        }
-    };
-
-    const removeTool = (toolToRemove: string) => {
-        setEditedProcess({
-            ...process,
-            tools: process.tools?.filter(tool => tool !== toolToRemove) || []
-        });
     };
 
     const addResponsible = () => {
@@ -92,39 +76,9 @@ export function FormProcessEdit({ process, onSave, onCancel, setEditedProcess }:
                     onChange={(e) => setEditedProcess({ ...process, description: e.target.value })}
                 />
             </Form.Group>
-            
-            <FieldForTools process={process} setEditedProcess={setEditedProcess} />
 
-            {/* Campo para Responsáveis */}
-            <Form.Group className="mb-3">
-                <Form.Label>Responsáveis</Form.Label>
-                <div className="d-flex mb-2">
-                    <Form.Control
-                        type="text"
-                        value={newResponsible}
-                        onChange={(e) => setNewResponsible(e.target.value)}
-                        placeholder="Adicionar responsável"
-                    />
-                    <Button variant="outline-secondary" onClick={addResponsible} className="ms-2">
-                        Adicionar
-                    </Button>
-                </div>
-                <div className="d-flex flex-wrap gap-2">
-                    {process.responsible?.map((resp, index) => (
-                        <Badge key={index} bg="primary" className="d-flex align-items-center">
-                            {resp}
-                            <Button
-                                variant="link"
-                                className="text-white p-0 ms-2"
-                                onClick={() => removeResponsible(resp)}
-                                size="sm"
-                            >
-                                ×
-                            </Button>
-                        </Badge>
-                    ))}
-                </div>
-            </Form.Group>
+            <FieldForTools process={process} setEditedProcess={setEditedProcess} />
+            <FieldResponsibles process={process} setEditedProcess={setEditedProcess} />
 
             {/* Campo para Documentação */}
             <Form.Group className="mb-3">
