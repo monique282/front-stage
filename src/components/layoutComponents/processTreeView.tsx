@@ -1,9 +1,11 @@
 import React, { useContext, useState } from 'react';
-import { Accordion, Card, Badge, ListGroup, Button } from 'react-bootstrap';
-import { FaUsers, FaTools, FaFileAlt, FaUserTie, FaTrash, FaEdit } from 'react-icons/fa';
+import { Accordion, Card, Button } from 'react-bootstrap';
 import { Area, AreaPut, Process } from '../../types/processTree';
 import { AuthContext } from '../../contexts/contex';
 import { NavigateFunction, useNavigate } from 'react-router-dom';
+import { CardHerder } from './cardHerder';
+import { ListGroupProcess } from './listGroup';
+import { DivAccordion } from './divAccordion';
 
 interface ProcessTreeViewProps {
     areas: Area[];
@@ -17,32 +19,6 @@ export function ProcessTreeView({ areas, onDeleteProcess, onDeleteArea, onEditAr
     const [editingAreaId, setEditingAreaId] = useState<number | null>(null);
     const [editedArea, setEditedArea] = useState<Partial<AreaPut>>({});
     const navigate = useNavigate();
-
-    const handleDeleteProcess = (processId: string, e: React.MouseEvent) => {
-        e.stopPropagation();
-        if (onDeleteProcess) {
-            onDeleteProcess(processId, authToken);
-        }
-    };
-
-    const handleDeleteArea = (areaId: number, e: React.MouseEvent) => {
-        e.stopPropagation();
-        if (onDeleteArea) {
-            onDeleteArea(areaId, authToken);
-        }
-    };
-
-    function handleEditArea(areaId: number, e: React.MouseEvent) {
-        e.stopPropagation();
-        const areaToEdit = areas.find(area => area.id === areaId);
-        if (areaToEdit) {
-            setEditedArea({
-                name: areaToEdit.name,
-                description: areaToEdit.description
-            });
-            setEditingAreaId(areaId);
-        }
-    };
 
     const handleSaveArea = (e: React.FormEvent) => {
         e.preventDefault();
@@ -67,53 +43,10 @@ export function ProcessTreeView({ areas, onDeleteProcess, onDeleteArea, onEditAr
         return (
             <div key={process.id} className="mb-2">
                 <Card className="mb-2">
-                    <Card.Header className="d-flex justify-content-between align-items-center">
-                        <h5 className="mb-0">
-                            {process.name}
-                            <Badge bg="secondary" className="ms-2">
-                                Processo
-                            </Badge>
-                        </h5>
-                        {admin && (
-                            <div>
-                                {onDeleteProcess && (
-                                    <Button
-                                        variant="outline-danger"
-                                        size="sm"
-                                        onClick={(e) => handleDeleteProcess(process.id, e)}
-                                        title="Excluir processo"
-                                    >
-                                        <FaTrash />
-                                    </Button>
-                                )}
-                            </div>
-                        )}
-                    </Card.Header>
+                    <CardHerder admin={admin} process={process} onDeleteProcess={onDeleteProcess} authToken={authToken} />
                     <Card.Body>
                         <p>{process.description}</p>
-
-                        <ListGroup variant="flush">
-                            {process.tools?.length > 0 && (
-                                <ListGroup.Item>
-                                    <FaTools className="me-2" />
-                                    <strong>Ferramentas:</strong> {process.tools.join(', ')}
-                                </ListGroup.Item>
-                            )}
-
-                            {process.responsible?.length > 0 && (
-                                <ListGroup.Item>
-                                    <FaUserTie className="me-2" />
-                                    <strong>Responsáveis:</strong> {process.responsible.join(', ')}
-                                </ListGroup.Item>
-                            )}
-
-                            {process.documents?.length > 0 && (
-                                <ListGroup.Item>
-                                    <FaFileAlt className="me-2" />
-                                    <strong>Documentação:</strong> {process.documents.join(', ')}
-                                </ListGroup.Item>
-                            )}
-                        </ListGroup>
+                        <ListGroupProcess process={process}/>
                     </Card.Body>
                 </Card>
             </div>
@@ -127,42 +60,7 @@ export function ProcessTreeView({ areas, onDeleteProcess, onDeleteArea, onEditAr
             <Accordion defaultActiveKey="0">
                 {areas.map((area, index) => (
                     <Accordion.Item eventKey={String(index)} key={area.id}>
-                        <div className="d-flex align-items-center">
-                            <Accordion.Header className="flex-grow-1">
-                                <div className="d-flex align-items-center">
-                                    <FaUsers className="me-2" />
-                                    {area.name}
-                                    <Badge bg="info" className="ms-2">
-                                        {area.processes.length} processos
-                                    </Badge>
-                                </div>
-                            </Accordion.Header>
-                            {admin && (
-                                <div className="d-flex align-items-center pe-3">
-                                    {onEditArea && (
-                                        <Button
-                                            variant="outline-primary"
-                                            size="sm"
-                                            className="me-2"
-                                            onClick={(e) => handleEditArea(area.id, e)}
-                                            title="Editar área"
-                                        >
-                                            <FaEdit />
-                                        </Button>
-                                    )}
-                                    {onDeleteArea && (
-                                        <Button
-                                            variant="outline-danger"
-                                            size="sm"
-                                            onClick={(e) => handleDeleteArea(area.id, e)}
-                                            title="Excluir área"
-                                        >
-                                            <FaTrash />
-                                        </Button>
-                                    )}
-                                </div>
-                            )}
-                        </div>
+                        <DivAccordion onDeleteArea={onDeleteArea} areas={areas} setEditedArea={setEditedArea} setEditingAreaId={setEditingAreaId} area={area} onEditArea={onEditArea}/>
                         <Accordion.Body>
                             {editingAreaId === area.id ? (
                                 <form onSubmit={handleSaveArea}>
