@@ -47,7 +47,7 @@ export default function Layout() {
                             {admin && (
                                 <>
                                     <Nav.Link as={Link} to="/register" className="mb-3 mb-lg-0 me-lg-3">Cadastrar novo usuario </Nav.Link>
-                                    <Nav.Link as={Link} to="/area" className="mb-3 mb-lg-0 me-lg-3">Cadastrar nova area </Nav.Link>
+                                    <Nav.Link as={Link} to="/area" className="mb-3 mb-lg-0 me-lg-3">Cadastrar nova area ou processo </Nav.Link>
                                 </>
                             )}
                         </Nav>
