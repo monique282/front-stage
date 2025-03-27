@@ -14,9 +14,9 @@ interface CardHeaderProps {
     authToken: string;
 }
 
-export function CardHeader({ admin, process, onDeleteProcess, onEditProcess, authToken}: CardHeaderProps) {
+export function CardHeader({ admin, process, onDeleteProcess, onEditProcess, authToken }: CardHeaderProps) {
     const [isEditing, setIsEditing] = useState(false);
-    const[editedProcess, setEditedProcess] = useState<ProcessPut>({
+    const [editedProcess, setEditedProcess] = useState<ProcessPut>({
         name: process.name,
         description: process.description,
         tools: process.tools ? [...process.tools] : [],
@@ -44,44 +44,44 @@ export function CardHeader({ admin, process, onDeleteProcess, onEditProcess, aut
                 <FormProcessEdit
                     process={editedProcess}
                     onSave={handleSave}
-                    onCancel={() => setIsEditing(false)}
+                    onCancel={() => {setIsEditing(false); window.location.reload();}}
                     setEditedProcess={setEditedProcess}
                 />
             ) : (
-                <>
-                    <h5 className="mb-0">
-                        {process.name}
-                        <Badge bg="secondary" className="ms-2">
-                            Processo
-                        </Badge>
-                    </h5>
-                    {admin && (
-                        <div>
+            <>
+                <h5 className="mb-0">
+                    {process.name}
+                    <Badge bg="secondary" className="ms-2">
+                        Processo
+                    </Badge>
+                </h5>
+                {admin && (
+                    <div>
+                        <Button
+                            variant="outline-primary"
+                            size="sm"
+                            className="me-2"
+                            onClick={(e) => {
+                                e.stopPropagation();
+                                setIsEditing(true);
+                            }}
+                            title="Editar processo"
+                        >
+                            <FaEdit />
+                        </Button>
+                        {onDeleteProcess && (
                             <Button
-                                variant="outline-primary"
+                                variant="outline-danger"
                                 size="sm"
-                                className="me-2"
-                                onClick={(e) => {
-                                    e.stopPropagation();
-                                    setIsEditing(true);
-                                }}
-                                title="Editar processo"
+                                onClick={handleDelete}
+                                title="Excluir processo"
                             >
-                                <FaEdit />
+                                <FaTrash />
                             </Button>
-                            {onDeleteProcess && (
-                                <Button
-                                    variant="outline-danger"
-                                    size="sm"
-                                    onClick={handleDelete}
-                                    title="Excluir processo"
-                                >
-                                    <FaTrash />
-                                </Button>
-                            )}
-                        </div>
-                    )}
-                </>
+                        )}
+                    </div>
+                )}
+            </>
             )}
         </Card.Header>
     );

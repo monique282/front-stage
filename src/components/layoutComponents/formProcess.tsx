@@ -3,6 +3,7 @@ import { Button, Form, Badge } from 'react-bootstrap';
 import { ProcessPut } from '../../types/processFormData';
 import { FieldForTools } from './formProcees/fieldForTools';
 import { FieldResponsibles } from './formProcees/fieldResponsibles';
+import { FieldDocuments } from './formProcees/fieldDocuments';
 
 interface FormProcessProps {
     process: ProcessPut;
@@ -12,30 +13,10 @@ interface FormProcessProps {
 }
 
 export function FormProcessEdit({ process, onSave, onCancel, setEditedProcess }: FormProcessProps) {
-    const [newTool, setNewTool] = useState('');
-    const [newResponsible, setNewResponsible] = useState('');
-    const [newDocument, setNewDocument] = useState('');
 
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault();
         onSave(process);
-    };
-
-    const addDocument = () => {
-        if (newDocument.trim() && !process.documents?.includes(newDocument.trim())) {
-            setEditedProcess({
-                ...process,
-                documents: [...(process.documents || []), newDocument.trim()]
-            });
-            setNewDocument('');
-        }
-    };
-
-    const removeDocument = (documentToRemove: string) => {
-        setEditedProcess({
-            ...process,
-            documents: process.documents?.filter(doc => doc !== documentToRemove) || []
-        });
     };
 
     return (
@@ -62,37 +43,7 @@ export function FormProcessEdit({ process, onSave, onCancel, setEditedProcess }:
 
             <FieldForTools process={process} setEditedProcess={setEditedProcess} />
             <FieldResponsibles process={process} setEditedProcess={setEditedProcess} />
-
-            {/* Campo para Documentação */}
-            <Form.Group className="mb-3">
-                <Form.Label>Documentação</Form.Label>
-                <div className="d-flex mb-2">
-                    <Form.Control
-                        type="text"
-                        value={newDocument}
-                        onChange={(e) => setNewDocument(e.target.value)}
-                        placeholder="Adicionar documento"
-                    />
-                    <Button variant="outline-secondary" onClick={addDocument} className="ms-2">
-                        Adicionar
-                    </Button>
-                </div>
-                <div className="d-flex flex-wrap gap-2">
-                    {process.documents?.map((doc, index) => (
-                        <Badge key={index} bg="secondary" className="d-flex align-items-center">
-                            {doc}
-                            <Button
-                                variant="link"
-                                className="text-white p-0 ms-2"
-                                onClick={() => removeDocument(doc)}
-                                size="sm"
-                            >
-                                ×
-                            </Button>
-                        </Badge>
-                    ))}
-                </div>
-            </Form.Group>
+            <FieldDocuments process={process} setEditedProcess={setEditedProcess} />
 
             <div className="d-flex justify-content-end gap-2">
                 <Button variant="secondary" onClick={onCancel}>
