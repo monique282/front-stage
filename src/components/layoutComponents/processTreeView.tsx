@@ -1,13 +1,13 @@
-import React, { useContext, useState } from 'react';
+import { useContext, useState } from 'react';
 import { Accordion, Card } from 'react-bootstrap';
-import { Area, AreaPut, Process } from '../../types/processTree';
-import { AuthContext } from '../../contexts/contex';
 import { NavigateFunction, useNavigate } from 'react-router-dom';
-import { ListGroupProcess } from './listGroup';
-import { DivAccordion } from './divAccordion';
-import { FormProcess } from './form';
-import { CardHeader } from './cardHerder';
+import { AuthContext } from '../../contexts/contex';
 import { ProcessPut } from '../../types/processFormData';
+import { Area, AreaPut, Process } from '../../types/processTree';
+import { CardHeader } from './processTreeView/cardHerder';
+import { DivAccordion } from './processTreeView/divAccordion';
+import { FormProcess } from './processTreeView/form';
+import { ListGroupProcess } from './processTreeView/listGroup';
 
 interface ProcessTreeViewProps {
     areas: Area[];

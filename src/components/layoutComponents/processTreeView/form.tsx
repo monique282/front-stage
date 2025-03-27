@@ -1,8 +1,8 @@
 import React, { useContext } from 'react';
-import {  Button } from 'react-bootstrap';
-import { AuthContext } from '../../contexts/contex';
+import { Button } from 'react-bootstrap';
 import { NavigateFunction } from 'react-router-dom';
-import { AreaPut } from '../../types/processTree';
+import { AuthContext } from '../../../contexts/contex';
+import { AreaPut } from '../../../types/processTree';
 
 interface FormProcessProps {
     editingAreaId: number | null;

@@ -1,8 +1,7 @@
-import React from 'react';
-import {  ListGroup,  } from 'react-bootstrap';
-import { FaTools, FaFileAlt, FaUserTie } from 'react-icons/fa';
+import { ListGroup, } from 'react-bootstrap';
+import { FaFileAlt, FaTools, FaUserTie } from 'react-icons/fa';
 
-import { ProcessFormData } from '../../types/processFormData';
+import { ProcessFormData } from '../../../types/processFormData';
 
 interface ProcessTreeViewProps {
     process: ProcessFormData

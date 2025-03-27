@@ -1,9 +1,9 @@
-import React, { useState } from 'react';
-import { Button, Form, Badge } from 'react-bootstrap';
-import { ProcessPut } from '../../types/processFormData';
-import { FieldForTools } from './formProcees/fieldForTools';
-import { FieldResponsibles } from './formProcees/fieldResponsibles';
-import { FieldDocuments } from './formProcees/fieldDocuments';
+import React from 'react';
+import { Button, Form } from 'react-bootstrap';
+import { ProcessPut } from '../../../types/processFormData';
+import { FieldDocuments } from '../formProcees/fieldDocuments';
+import { FieldForTools } from '../formProcees/fieldForTools';
+import { FieldResponsibles } from '../formProcees/fieldResponsibles';
 
 interface FormProcessProps {
     process: ProcessPut;

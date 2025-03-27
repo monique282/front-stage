@@ -5,8 +5,8 @@ import { GiFruitTree } from 'react-icons/gi';
 import { AuthContext } from '../contexts/contex';
 import {ProcessTreeView} from '../components/layoutComponents/processTreeView';
 import axios from 'axios';
-import { handleDeleteProcess } from '../components/layoutComponents/handleDeleteProcess';
-import { handleDeleteArea } from '../components/layoutComponents/handleDeleteArea';
+import { handleDeleteProcess } from '../components/layoutComponents/handles/handleDeleteProcess';
+import { handleDeleteArea } from '../components/layoutComponents/handles/handleDeleteArea';
 import { handleEditAreaPut } from '../components/layoutComponents/handleEditArea';
 import { handleEditProcess } from '../components/layoutComponents/handleEditProcess';
 

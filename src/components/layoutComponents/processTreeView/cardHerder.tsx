@@ -1,10 +1,9 @@
-// components/layoutComponents/cardHeader.tsx
 import React, { useState } from 'react';
-import { Card, Badge, Button } from 'react-bootstrap';
-import { FaTrash, FaEdit } from 'react-icons/fa';
-import { Process } from '../../types/processTree';
-import { ProcessPut } from '../../types/processFormData';
-import { FormProcessEdit } from './formProcess';
+import { Badge, Button, Card } from 'react-bootstrap';
+import { FaEdit, FaTrash } from 'react-icons/fa';
+import { ProcessPut } from '../../../types/processFormData';
+import { Process } from '../../../types/processTree';
+import { FormProcessEdit } from '../cardHeader/formProcess';
 
 interface CardHeaderProps {
     admin: boolean;

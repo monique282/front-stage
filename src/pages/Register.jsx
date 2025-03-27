@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Form, Button, Card, Container, Row, Col, Alert } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../contexts/contex';
-import { handleRegister } from '../components/layoutComponents/handleRegister';
+import { handleRegister } from '../components/layoutComponents/handles/handleRegister';
 
 export default function Register() {
     const [formData, setFormData] = useState({

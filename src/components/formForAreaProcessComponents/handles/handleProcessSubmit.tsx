@@ -1,5 +1,5 @@
 import axios from "axios";
-import { ProcessFormData } from "../../types/processFormData";
+import { ProcessFormData } from "../../../types/processFormData";
 
 interface HandleProcessSubmitParams {
     e: React.FormEvent;

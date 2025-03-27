@@ -1,17 +1,17 @@
-import React, { useContext, useEffect, useState } from 'react';
-import { Form, Button, Modal, Row, Col, Alert } from 'react-bootstrap';
+import axios from 'axios';
+import { useContext, useEffect, useState } from 'react';
+import { Alert, Button, Col, Form, Modal, Row } from 'react-bootstrap';
 import { FaSave } from 'react-icons/fa';
 import { useNavigate } from 'react-router-dom';
-import { RowFormforArea } from '../components/formForAreaProcessComponents/rowFormforArea';
-import { ModalArea } from '../components/formForAreaProcessComponents/modalArea';
-import { AuthContext } from '../contexts/contex';
-import { handleAreaSubmit } from '../components/formForAreaProcessComponents/handleAreaSubmit';
-import axios from 'axios';
-import { RowFormForProcess } from '../components/formForAreaProcessComponents/rowFormForProcess';
-import ColTool from '../components/formForAreaProcessComponents/colTool';
 import ColDocument from '../components/formForAreaProcessComponents/colDocument';
-import { handleProcessSubmit } from '../components/formForAreaProcessComponents/handleProcessSubmit';
 import ColResponsible from '../components/formForAreaProcessComponents/colResponsible';
+import ColTool from '../components/formForAreaProcessComponents/colTool';
+import { handleAreaSubmit } from '../components/formForAreaProcessComponents/handles/handleAreaSubmit';
+import { handleProcessSubmit } from '../components/formForAreaProcessComponents/handles/handleProcessSubmit';
+import { ModalArea } from '../components/formForAreaProcessComponents/modalArea';
+import { RowFormforArea } from '../components/formForAreaProcessComponents/rowFormforArea';
+import { RowFormForProcess } from '../components/formForAreaProcessComponents/rowFormForProcess';
+import { AuthContext } from '../contexts/contex';
 
 export default function FormForArea() {
     const [showAreaModal, setShowAreaModal] = useState(false);
@@ -83,7 +83,6 @@ export default function FormForArea() {
                         <Row>
                             <ColTool tempTool={tempTool} setTempTool={setTempTool} processForm={processForm} setProcessForm={setProcessForm} />
                             <ColResponsible tempResponsible={tempResponsible} setTempResponsible={setTempResponsible} processForm={processForm} setProcessForm={setProcessForm} />
-
                             <ColDocument tempDocument={tempDocument} setTempDocument={setTempDocument} processForm={processForm} setProcessForm={setProcessForm} />
                         </Row>
                     </Modal.Body>

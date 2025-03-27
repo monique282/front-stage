@@ -1,9 +1,9 @@
 import React, { useContext } from 'react';
 import { Accordion, Badge, Button } from 'react-bootstrap';
-import { FaUsers, FaTrash, FaEdit } from 'react-icons/fa';
-import { AuthContext } from '../../contexts/contex';
+import { FaEdit, FaTrash, FaUsers } from 'react-icons/fa';
 import { NavigateFunction } from 'react-router-dom';
-import { Area, AreaPut } from '../../types/processTree';
+import { AuthContext } from '../../../contexts/contex';
+import { Area, AreaPut } from '../../../types/processTree';
 
 interface DivAccordionProps {
     onDeleteArea?: (areaId: number, authToken: string) => void;
