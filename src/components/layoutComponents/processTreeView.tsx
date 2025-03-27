@@ -11,12 +11,7 @@ interface ProcessTreeViewProps {
 }
 
 const ProcessTreeView: React.FC<ProcessTreeViewProps> = ({ areas, onDeleteProcess, onDeleteArea }) => {
-    const { admin, authToken } = useContext(AuthContext) as { admin: boolean; authToken: string;};
-    const getSubprocesses = (processId: string): Process[] => {
-        return areas.flatMap(area =>
-            area.processes.filter(process => process.parentId === processId)
-        );
-    };
+    const { admin, authToken } = useContext(AuthContext) as { admin: boolean; authToken: string; };
 
     const handleDeleteProcess = (processId: string, e: React.MouseEvent) => {
         e.stopPropagation();
@@ -32,17 +27,15 @@ const ProcessTreeView: React.FC<ProcessTreeViewProps> = ({ areas, onDeleteProces
         }
     };
 
-    const renderProcess = (process: Process, areaId: number, level = 0) => {
-        const subprocesses = getSubprocesses(process.id);
-
+    const renderProcess = (process: Process) => {
         return (
-            <div key={process.id} className={`mb-2 ps-${level * 3}`} style={{ marginLeft: `${level * 20}px` }}>
+            <div key={process.id} className="mb-2">
                 <Card className="mb-2">
                     <Card.Header className="d-flex justify-content-between align-items-center">
                         <h5 className="mb-0">
                             {process.name}
                             <Badge bg="secondary" className="ms-2">
-                                {subprocesses.length > 0 ? `${subprocesses.length} subprocessos` : 'Processo final'}
+                                Processo
                             </Badge>
                         </h5>
                         {admin && onDeleteProcess && (
@@ -83,12 +76,6 @@ const ProcessTreeView: React.FC<ProcessTreeViewProps> = ({ areas, onDeleteProces
                         </ListGroup>
                     </Card.Body>
                 </Card>
-
-                {subprocesses.length > 0 && (
-                    <div className="subprocesses">
-                        {subprocesses.map(subprocess => renderProcess(subprocess, areaId, level + 1))}
-                    </div>
-                )}
             </div>
         );
     };
@@ -98,45 +85,43 @@ const ProcessTreeView: React.FC<ProcessTreeViewProps> = ({ areas, onDeleteProces
             <h2 className="mb-4">Mapeamento de Processos por Área</h2>
 
             <Accordion defaultActiveKey="0">
-                {areas.map((area, index) => {
-                    const topLevelProcesses = area.processes.filter(process => process.parentId === null);
+                {areas.map((area, index) => (
+                    <Accordion.Item eventKey={String(index)} key={area.id}>
+                        <Accordion.Header className="d-flex justify-content-between align-items-center">
+                            <div className="d-flex align-items-center">
+                                <FaUsers className="me-2" />
+                                {area.name}
+                                <Badge bg="info" className="ms-2">
+                                    {area.processes.length} processos
+                                </Badge>
+                            </div>
+                            {admin && onDeleteArea && (
+                                <span
+                                    className="btn btn-outline-danger btn-sm ms-2"
+                                    onClick={(e) => {
+                                        e.stopPropagation();
+                                        handleDeleteArea(area.id, e);
+                                    }}
+                                    title="Excluir área"
+                                    role="button"
+                                >
+                                    <FaTrash />
+                                </span>
+                            )}
+                        </Accordion.Header>
+                        <Accordion.Body>
+                            <p className="text-muted">{area.description}</p>
 
-                    return (
-                        <Accordion.Item eventKey={String(index)} key={area.id}>
-                            <Accordion.Header className="d-flex justify-content-between align-items-center">
-                                <div className="d-flex align-items-center">
-                                    <FaUsers className="me-2" />
-                                    {area.name}
-                                    <Badge bg="info" className="ms-2">
-                                        {topLevelProcesses.length} processos principais
-                                    </Badge>
+                            {area.processes.length > 0 ? (
+                                area.processes.map(process => renderProcess(process))
+                            ) : (
+                                <div className="text-center py-3">
+                                    <p>Nenhum processo cadastrado para esta área.</p>
                                 </div>
-                                {admin && onDeleteArea && (
-                                    <Button
-                                        variant="outline-danger"
-                                        size="sm"
-                                        onClick={(e) => handleDeleteArea(area.id, e)}
-                                        title="Excluir área"
-                                        className="ms-2"
-                                    >
-                                        <FaTrash />
-                                    </Button>
-                                )}
-                            </Accordion.Header>
-                            <Accordion.Body>
-                                <p className="text-muted">{area.description}</p>
-
-                                {topLevelProcesses.length > 0 ? (
-                                    topLevelProcesses.map(process => renderProcess(process, area.id))
-                                ) : (
-                                    <div className="text-center py-3">
-                                        <p>Nenhum processo cadastrado para esta área.</p>
-                                    </div>
-                                )}
-                            </Accordion.Body>
-                        </Accordion.Item>
-                    );
-                })}
+                            )}
+                        </Accordion.Body>
+                    </Accordion.Item>
+                ))}
             </Accordion>
         </div>
     );

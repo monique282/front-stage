@@ -101,10 +101,16 @@ export default function Login() {
                                 >
                                     {loading ? 'Carregando...' : 'Entrar'}
                                 </Button>
+                                
                             </Form>
-                            <div className="text-center mt-3">
-                                <Link to="/forgot-password">Esqueceu a senha?</Link>
+                            <div className="d-flex justify-content-center" style={{ marginTop: '10px' }}>
+                                <Button variant="secondary" onClick={() => navigate("/")}>
+                                    Cancelar
+                                </Button>
                             </div>
+                            {/* <div className="text-center mt-3">
+                                <Link to="/forgot-password">Esqueceu a senha?</Link>
+                            </div> */}
                         </Card.Body>
                     </Card>
                 </Col>

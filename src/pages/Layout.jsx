@@ -5,8 +5,8 @@ import { GiFruitTree } from 'react-icons/gi';
 import { AuthContext,  } from '../contexts/contex';
 import ProcessTreeView from '../components/layoutComponents/processTreeView';
 import axios from 'axios';
-import { handleDeleteProcess } from '../components/handleDeleteProcess';
-import { handleDeleteArea } from '../components/handleDeleteArea';
+import { handleDeleteProcess } from '../components/layoutComponents/handleDeleteProcess';
+import { handleDeleteArea } from '../components/layoutComponents/handleDeleteArea';
 
 export default function Layout() {
     const { logout, authToken, admin } = useContext(AuthContext)
@@ -29,7 +29,7 @@ export default function Layout() {
                     
                 })
     },[]) 
-   
+
     return (
         <>
             <Navbar bg="light" expand="lg" className="mb-4">
