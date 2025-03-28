@@ -25,7 +25,7 @@ npm run dev
 
 ## What to do when add new ENV VARIABLES
 
-- Add them to `.env.example` file
+- Take `.env.example` as an example to create the .env file
 - Add them to your local `.env` file
 
 ## Technologies used
