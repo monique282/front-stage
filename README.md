@@ -1,46 +1,104 @@
-# Getting Started with Create React App
+# front Desafio Tokenlab
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Front-end Stage for the challenge, a solution for mapping a company's processes
+## About
 
-## Available Scripts
+A web page for organizing areas and processes
 
-In the project directory, you can run:
+## How to run for development
 
-### `npm start`
+1. Clone this repository
+2. Install all dependencies
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+```bash
+npm i
+```
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+3. Populate `.env` file based on `.env.example`. `VITE_API_URL` should point to your API server. In this case we are using the localhost
 
-### `npm test`
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+4. Run the backend to complete the execution
 
-### `npm run build`
+```bash
+npm run dev
+```
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+## What to do when add new ENV VARIABLES
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+- Add them to `.env.example` file
+- Add them to your local `.env` file
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+## Technologies used
+For this project, the following were used:
 
-### `npm run eject`
+- React
+- Typescript
+- React Router Dom 
+- React-bootstrap
+- Axios 
+- React Icons 
+- Prop Types
+- Vite 
+- ESLint
+- Bootstrap  
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+### Layout Components
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+The first page is the list of areas and processes for each area. If the user is not logged in, the login option will appear. The images below are in web mode and mobile mode.
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
 
-## Learn More
+![Search Boxes](https://imgur.com/dciftUA.png)
+![Search Boxes](https://imgur.com/t4JXT0y.png)
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+Open menu.
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+![Search Boxes](https://imgur.com/Q2dxsSj.png)
+
+
+Login screen, there are two types of users, those who are administrators and those who are simple users, if you are an administrator the edit and delete icons will appear and also in the menu the option to register new areas and new processes will appear as well as the registration of other users.
+
+Login screen
+
+![Search Boxes](https://imgur.com/oArjMRm.png)
+
+Main screen for an administrator with edit and delete buttons, web mode.
+
+![Search Boxes](https://imgur.com/0VwbpaB.png)
+
+Mobile mode screen.
+Showing how to edit and delete processes.
+
+![Search Boxes](https://imgur.com/W6PYim7.png)
+
+
+Editing an area.
+
+![Search Boxes](https://imgur.com/nZuGA0h.png)
+
+To edit a process you have to click on the edit icon. The fields to be edited will open on the screen. In the `tools`, `responsible` and `documentation` fields, it works like this: you type in the field and click on the `Adicionar` and it will be added to the list. To remove an element from the list, simply go to the element you want to remove and click on the `x` next to the element.
+
+
+![Search Boxes](https://imgur.com/Qx34xSP.png)
+
+If you are the administrator, you will be able to register a new user, as shown in the image.
+
+![Search Boxes](https://imgur.com/0uFO0B5.png)
+
+
+If you are the administrator, you will be able to register a new area or a new process.
+
+![Search Boxes](https://imgur.com/oqtVOHN.png)
+
+
+Registering a new area.
+
+![Search Boxes](https://imgur.com/fukYqXX.png)
+
+Registration and new process.
+
+![Search Boxes](https://imgur.com/4g30tpX.png)
+
+Future features are planned. If you want to know more, please get in touch.
+
+
