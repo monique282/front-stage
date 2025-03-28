@@ -1,4 +1,4 @@
-# front Desafio Tokenlab
+# Front Desafio Stage
 
 Front-end Stage for the challenge, a solution for mapping a company's processes
 ## About
